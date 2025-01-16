@@ -1,0 +1,34 @@
+---
+- name: "Apache installation"
+  hosts: all
+  become: yes
+  tasks:
+    - name: "Install package apache"
+      apt:
+        name: "apache2"
+        state: "present"
+        update_cache: yes
+
+    - name: "Install ufw"
+      apt:
+        name: "ufw"
+        state: "present"
+
+    - name: "Start apache service"
+      service:
+        name: "apache2"
+        state: "started"
+        enabled: yes
+
+    - name: "Allow http connections through firewall"
+      ufw:
+        rule: "allow"
+        name: "Apache"
+        state: "enabled"
+
+    - name: "Copy test.html to /var/www/html"
+      copy:
+        src: "test.html"
+        dest: "/var/www/html/test.html"
+        owner: "www-data"
+        group: "www-data"
