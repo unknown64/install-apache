@@ -9,7 +9,7 @@
         state: "present"
         update_cache: yes
 
-    - name: "Install ufw"
+    - name: "Install Ufw"
       apt:
         name: "ufw"
         state: "present"
